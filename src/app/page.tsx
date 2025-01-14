@@ -1,13 +1,11 @@
 import styles from "./page.module.css";
 import Items from "./components/items";
+import Nav from "./layout/nav";
 
 export default function Home() {
   return (
     <div className={styles.container}>
-      <nav className={styles.nav}>
-        <button>Login</button>
-        <button>Signup</button>
-      </nav>
+      <Nav />
       <section className={styles.hero}>
         <Items />
       </section>
