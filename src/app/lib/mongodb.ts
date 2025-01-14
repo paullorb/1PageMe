@@ -10,7 +10,6 @@ const connectDB = async (dbName = 'test') => {
 
   try {
     await mongoose.connect(uri, { dbName });
-    console.log('MongoDB Connected');
   } catch (err) {
     if (err instanceof Error) {
       console.error(err.message);
