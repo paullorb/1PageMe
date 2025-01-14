@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 
 const connectDB = async (dbName = 'test') => {
 
-  const username = encodeURIComponent(process.env.MONGODB_USER || '');
-  const password = encodeURIComponent(process.env.MONGODB_PASS || '');
+  const username = encodeURIComponent(process.env.MONGO_USER || '');
+  const password = encodeURIComponent(process.env.MONGO_PASS || '');
   const cluster = process.env.MONGO_CLUSTER || '';
   const db = process.env.MONGO_DB || '';
   const uri = `mongodb+srv://${username}:${password}@${cluster}/${db}?retryWrites=true&w=majority`;
