@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "./item.module.css";
 
 interface ItemProps {
   initialValue: string;
@@ -9,23 +10,28 @@ export default function Item({ initialValue }: ItemProps) {
   const [isEditing, setIsEditing] = useState(true);
 
   const handleBlurOrEnter = () => {
-    setIsEditing(false);
+    if (value.trim() === "") {
+      setIsEditing(true); 
+    } else {
+      setIsEditing(false); 
+    }
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       {isEditing ? (
         <input
           type="text"
+          className={styles.input}
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onBlur={handleBlurOrEnter}
           onKeyUp={(e) => {
-            if (e.key === "Enter") handleBlurOrEnter(); 
+            if (e.key === "Enter") handleBlurOrEnter();
           }}
         />
       ) : (
-        <span>{value}</span> 
+        <span onClick={() => setIsEditing(true)}>{value}</span> 
       )}
     </div>
   );
