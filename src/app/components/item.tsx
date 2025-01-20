@@ -30,8 +30,10 @@ export default function Item({ initialValue, onSave, onComplete, onDelete }: Ite
           onChange={(e) => setValue(e.target.value)}
           autoFocus
         />
-        <button type="button" className={styles.completeButton} onClick={onComplete}>✅</button>
-        <button type="button" className={styles.deleteButton} onClick={onDelete}>❌</button>
+        <div className={styles.status}>
+          <button type="button" className={styles.completeButton} onClick={onComplete}>✅</button>
+          <button type="button" className={styles.deleteButton} onClick={onDelete}>❌</button>
+        </div>
       </div>
     </form>
   );

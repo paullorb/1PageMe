@@ -7,10 +7,6 @@ import Item from "./item";
 export default function Items() {
   const [items, setItems] = useState<string[]>([""]);
 
-  // const handleAddItem = (item: string) => {
-  //   setItems((prev) => [...prev, item]);
-  // };
-
   const handleSave = (id: number, value: string) => {
     setItems((prevItems) =>
       prevItems.map((item, index) => (index === id ? value : item))
