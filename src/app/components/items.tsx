@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Item from "./item";
-import styles from "./item.module.css";
+import styles from "./items.module.css";
 
 export default function Items() {
   const [items, setItems] = useState<{ text: string; completed: boolean }[]>([]);
@@ -27,23 +27,23 @@ export default function Items() {
   };
 
   const handleToggleComplete = (index: number) => {
-    setItems(items.map((item, i) => 
-      i === index ? { ...item, completed: !item.completed } : item
-    ));
-  };
-
-  const toggleShowCompleted = () => {
-    setShowCompleted(!showCompleted);
+    setItems(items.map((item, i) => i === index ? { ...item, completed: !item.completed } : item));
   };
 
   const displayedItems = showCompleted ? items.filter(item => item.completed) : items;
+  const completedCount = items.filter(item => item.completed).length;
 
   return (
     <div className={styles.container}>
-      <button onClick={toggleShowCompleted}>
-        {showCompleted ? "Show All" : "Show Completed"}
-      </button>
-      <div>
+      <div className={styles.counterContainer}>
+        <div className={styles.counter} onClick={() => setShowCompleted(false)}>
+          all ({items.length})
+        </div>
+        <div className={styles.counter} onClick={() => setShowCompleted(true)}>
+          completed ({completedCount})
+        </div>
+      </div>
+      <div className={styles.items}>
         {displayedItems.map((item, index) => (
           <Item
             key={index}

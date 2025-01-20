@@ -1,3 +1,5 @@
+import styles from "./item.module.css";
+
 interface ItemProps {
   text: string;
   completed: boolean;
@@ -8,8 +10,7 @@ interface ItemProps {
 
 export default function Item({ text, completed, onDelete, onToggleComplete, showButtons }: ItemProps) {
   return (
-    <div>
-      <span>{text}</span>
+    <div className={styles.item}>
       {showButtons && (
         <>
           <input
@@ -17,7 +18,10 @@ export default function Item({ text, completed, onDelete, onToggleComplete, show
             checked={completed}
             onChange={onToggleComplete}
           />
+          <span className={styles.text}>{text}</span>
+          <div>
           <button onClick={onDelete}>Delete</button>
+          </div>
         </>
       )}
     </div>
