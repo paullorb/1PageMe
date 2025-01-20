@@ -4,3 +4,9 @@
   align-items: center;
   gap: 1rem;
 }
+
+.hero {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
