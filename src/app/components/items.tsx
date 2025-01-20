@@ -11,6 +11,10 @@ export default function Items() {
     setItems((prevItems) =>
       prevItems.map((item, index) => (index === id ? value : item))
     );
+
+    if (value.trim() && id === items.length - 1) {
+      setItems((prevItems) => [...prevItems, ""]);
+    }
   };
 
   const handleComplete = (id: number) => {
