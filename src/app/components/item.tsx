@@ -1,47 +1,25 @@
-"use client";
-
-import styles from "./item.module.css";
-import { useState } from "react";
-
 interface ItemProps {
-  initialValue: string;
-  onSave: (value: string) => void;
-  onComplete: () => void;
+  text: string;
+  completed: boolean;
   onDelete: () => void;
-  onKeyDown?: (e: KeyboardEvent) => void;
+  onToggleComplete: () => void;
+  showButtons: boolean;
 }
 
-export default function Item({ initialValue, onSave, onComplete, onDelete }: ItemProps) {
-  const [value, setValue] = useState(initialValue);
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && value.trim()) {
-      e.preventDefault(); 
-      onSave(value);
-    }
-  };
-  
-  const inputFieldHasValue = value.trim().length > 0;
-
+export default function Item({ text, completed, onDelete, onToggleComplete, showButtons }: ItemProps) {
   return (
-    <form className={styles.container}>
-    <div className={styles.item}>
-        <input
-          type="text"
-          className={styles.input}
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-          autoFocus
-        />
-        <div className={styles.status}>
-        {inputFieldHasValue ? (
-          <button type="button" className={styles.completeButton} onClick={onComplete}>✅</button>
-        ) : null}
-          <button type="button" className={styles.deleteButton} onClick={onDelete}>❌</button>
-        </div>
-
-      </div>
-    </form>
+    <div>
+      <span>{text}</span>
+      {showButtons && (
+        <>
+          <input
+            type="checkbox"
+            checked={completed}
+            onChange={onToggleComplete}
+          />
+          <button onClick={onDelete}>Delete</button>
+        </>
+      )}
+    </div>
   );
 }

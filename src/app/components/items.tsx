@@ -1,64 +1,71 @@
 "use client";
 
-import styles from "./items.module.css";
 import { useState } from "react";
 import Item from "./item";
+import styles from "./item.module.css";
 
 export default function Items() {
-  const [items, setItems] = useState<string[]>([""]);
-  const [completedItems, setCompletedItems] = useState<string[]>([]);
-  const [showCompleted, setShowCompleted] = useState<boolean>(false);
+  const [items, setItems] = useState<{ text: string; completed: boolean }[]>([]);
+  const [newItem, setNewItem] = useState("");
+  const [showCompleted, setShowCompleted] = useState(false);
 
-  const handleSave = (id: number, value: string) => {
-    setItems((prevItems) =>
-      prevItems.map((item, index) => (index === id ? value : item))
-    );
-
-    if (value.trim() && id === items.length - 1) {
-      setItems((prevItems) => [...prevItems, ""]);
+  const handleAddItem = () => {
+    if (newItem.trim()) {
+      setItems([...items, { text: newItem.trim(), completed: false }]);
+      setNewItem("");
     }
   };
 
-  const handleComplete = (id: number) => {
-    setItems((prevItems) => {
-      const completedItem = prevItems[id];
-      setCompletedItems((prevCompleted) => [...prevCompleted, completedItem]);
-      return prevItems.filter((_, index) => index !== id);
-    });
+  const handleDeleteItem = (index: number) => {
+    setItems(items.filter((_, i) => i !== index));
   };
 
-  const handleDelete = (id: number) => {
-    setItems((prev) => prev.filter((_, index) => index !== id));
-  }
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleAddItem();
+    }
+  };
+
+  const handleToggleComplete = (index: number) => {
+    setItems(items.map((item, i) => 
+      i === index ? { ...item, completed: !item.completed } : item
+    ));
+  };
+
+  const toggleShowCompleted = () => {
+    setShowCompleted(!showCompleted);
+  };
+
+  const displayedItems = showCompleted ? items.filter(item => item.completed) : items;
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <button type="button" onClick={() => setShowCompleted(!showCompleted)}>
-          {showCompleted ? "Hide Completed" : "Show Completed"}
-        </button>
-      </header>
-      {showCompleted ? (
-        <div className={styles.items}>
-          {completedItems.map((item, index) => (
-            <div key={index} className={styles.completedItem}>
-              {item}
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className={styles.items}>
-          {items.map((item, index) => (
-            <Item
-              key={index}
-              initialValue={item}
-              onSave={(value) => handleSave(index, value)}
-              onDelete={() => handleDelete(index)}
-              onComplete={() => handleComplete(index)}
-            />
-          ))}
-        </div>
-      )}
+      <button onClick={toggleShowCompleted}>
+        {showCompleted ? "Show All" : "Show Completed"}
+      </button>
+      <div>
+        {displayedItems.map((item, index) => (
+          <Item
+            key={index}
+            text={item.text}
+            completed={item.completed}
+            onDelete={() => handleDeleteItem(index)}
+            onToggleComplete={() => handleToggleComplete(index)}
+            showButtons={!showCompleted}
+          />
+        ))}
+      </div>
+      <div className={styles.item}>
+        <input
+          type="text"
+          value={newItem}
+          onChange={(e) => setNewItem(e.target.value)}
+          placeholder="Add new item"
+          className={styles.input}
+          onKeyDown={handleKeyPress}
+        />
+        <button onClick={handleAddItem} className={styles.addButton}>Add</button>
+      </div>
     </div>
   );
 }
