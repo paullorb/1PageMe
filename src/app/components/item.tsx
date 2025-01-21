@@ -3,12 +3,13 @@ import styles from "./item.module.css";
 interface ItemProps {
   text: string;
   completed: boolean;
+  status?: string;
   onDelete: () => void;
   onToggleComplete: () => void;
   showButtons: boolean;
 }
 
-export default function Item({ text, completed, onDelete, onToggleComplete, showButtons }: ItemProps) {
+export default function Item({ text, completed, status, onDelete, onToggleComplete, showButtons }: ItemProps) {
   return (
     <div className={styles.item}>
       <input
@@ -17,7 +18,10 @@ export default function Item({ text, completed, onDelete, onToggleComplete, show
         onChange={onToggleComplete}
         className={styles.circularCheckbox}
       />
-      <span className={completed ? styles.completed : ""}>{text}</span>
+      <span className={styles.text} style={{ textDecoration: completed ? 'line-through' : 'none' }}>
+        {text}
+      </span>
+      {status && <span className={styles.status}>{status}</span>}
       {showButtons && (
         <button onClick={onDelete}>Delete</button>
       )}

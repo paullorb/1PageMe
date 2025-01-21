@@ -33,8 +33,7 @@
   text-decoration: underline;
 }
 
-
-.counterContainer {
+.headings {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;

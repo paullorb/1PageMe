@@ -35,7 +35,8 @@ export default function Items() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.counterContainer}>
+      <div className={styles.headings}>
+      <button>+</button>
         <div className={styles.counter} onClick={() => setShowCompleted(false)}>
           all ({items.length})
         </div>
