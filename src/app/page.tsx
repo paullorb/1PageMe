@@ -1,5 +1,5 @@
 import styles from "./page.module.css";
-import Items from "./components/items";
+import Items from "../components/todo/itemList";
 import Nav from "./layout/nav";
 
 export default function Home() {

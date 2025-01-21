@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Item from "./item";
-import styles from "./items.module.css";
+import styles from "./itemList.module.css";
 
 export default function Items() {
   const [items, setItems] = useState<{ text: string; completed: boolean }[]>([]);
