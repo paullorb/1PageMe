@@ -7,3 +7,18 @@
 .text {
   flex: 1;
 }
+
+.circularCheckbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  outline: none;
+  cursor: pointer;
+}
+
+.circularCheckbox:checked {
+  background-color: #4CAF50;
+  border-color: #4CAF50;
+}
