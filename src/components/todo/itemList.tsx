@@ -41,7 +41,7 @@ export default function Items() {
           all ({items.length})
         </div>
         <div className={styles.counter} onClick={() => setShowCompleted(true)}>
-          completed ({completedCount})
+          done ({completedCount})
         </div>
       </div>
       <div className={styles.items}>
