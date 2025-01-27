@@ -1,37 +1,24 @@
 "use client";
 
-import { useState } from "react";
 import Item from "./item";
 import styles from "./itemList.module.css";
+import { useTodoList } from "../../hooks/useTodoList";
 
 export default function Items() {
-  const [items, setItems] = useState<{ text: string; completed: boolean }[]>([]);
-  const [newItem, setNewItem] = useState("");
-  const [showCompleted, setShowCompleted] = useState(false);
+  
+    const {
+    newItem,
+    showCompleted,
+    displayedItems,
+    completedCount,
+    handleAddItem,
+    handleDeleteItem,
+    handleToggleComplete,
+    handleKeyPress,
+    setNewItem,
+    setShowCompleted
+  } = useTodoList();
 
-  const handleAddItem = () => {
-    if (newItem.trim()) {
-      setItems([...items, { text: newItem.trim(), completed: false }]);
-      setNewItem("");
-    }
-  };
-
-  const handleDeleteItem = (index: number) => {
-    setItems(items.filter((_, i) => i !== index));
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      handleAddItem();
-    }
-  };
-
-  const handleToggleComplete = (index: number) => {
-    setItems(items.map((item, i) => i === index ? { ...item, completed: !item.completed } : item));
-  };
-
-  const displayedItems = showCompleted ? items.filter(item => item.completed) : items;
-  const completedCount = items.filter(item => item.completed).length;
 
   return (
     <div className={styles.container}>
@@ -40,7 +27,7 @@ export default function Items() {
           <button>+</button>
       </div>
         <div className={styles.counter} onClick={() => setShowCompleted(false)}>
-          Ɐ ({items.length})
+          Ɐ ({Item.length})
         </div>
         <div className={styles.counter} onClick={() => setShowCompleted(true)}>
           ✓ ({completedCount})

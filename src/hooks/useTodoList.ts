@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { TodoItem } from '@/types/todo';
 
 export const useTodoList = () => {
-  const [items, setItems] = useState<TodoItem[]>([]);
+  const [items, setItems] = useState<{ text: string; completed: boolean }[]>([]);
   const [newItem, setNewItem] = useState('');
   const [showCompleted, setShowCompleted] = useState(false);
 
@@ -21,13 +20,25 @@ export const useTodoList = () => {
     setItems(items.map((item, i) => i === index ? { ...item, completed: !item.completed } : item));
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleAddItem();
+    }
+  };
+
+  const displayedItems = showCompleted ? items.filter(item => item.completed) : items;
+  const completedCount = items.filter(item => item.completed).length;
+
   return {
     items,
     newItem,
     showCompleted,
+    displayedItems,
+    completedCount,
     handleAddItem,
     handleDeleteItem,
     handleToggleComplete,
+    handleKeyPress,
     setNewItem,
     setShowCompleted
   };
