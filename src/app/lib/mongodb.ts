@@ -1,23 +1,21 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-const connectDB = async (dbName = 'test') => {
+const MONGO_URI = process.env.MONGO_URI;
 
-  const username = encodeURIComponent(process.env.MONGO_USER || '');
-  const password = encodeURIComponent(process.env.MONGO_PASS || '');
-  const cluster = process.env.MONGO_CLUSTER || '';
-  const db = process.env.MONGO_DB || '';
-  const uri = `mongodb+srv://${username}:${password}@${cluster}/${db}?retryWrites=true&w=majority`;
-
-  try {
-    await mongoose.connect(uri, { dbName });
-  } catch (err) {
-    if (err instanceof Error) {
-      console.error(err.message);
-    } else {
-      console.error(err);
-    }
-    throw err;
-  }
+if (!MONGO_URI) {
+  throw new Error("MongoDB connection string is missing in .env.local");
 }
 
-export default connectDB;
+export const connectDB = async () => {
+  if (mongoose.connection.readyState >= 1) {
+    return;
+  }
+  
+  try {
+    await mongoose.connect(MONGO_URI);
+    console.log("MongoDB Connected");
+  } catch (error) {
+    console.error("MongoDB connection error:", error);
+    throw new Error("MongoDB Connection Failed");
+  }
+};
