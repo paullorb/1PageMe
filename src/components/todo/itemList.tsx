@@ -23,8 +23,6 @@ export default function Items() {
   return (
     <div className={styles.container}>
       <div className={styles.headings}>
-        <div className={styles.counter}>
-      </div>
         <div className={styles.counter} onClick={() => setShowCompleted(false)}>
           Ɐ ({displayedItems.length})
         </div>
