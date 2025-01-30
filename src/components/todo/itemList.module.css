@@ -31,6 +31,10 @@
   background-color: #e0e0e0;
 }
 
+.category {
+  display: flex;
+}
+
 .items {
   display: flex;
   flex-direction: column;

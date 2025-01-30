@@ -24,7 +24,6 @@ export default function Items() {
     <div className={styles.container}>
       <div className={styles.headings}>
         <div className={styles.counter}>
-          <button>+</button>
       </div>
         <div className={styles.counter} onClick={() => setShowCompleted(false)}>
           Ɐ ({displayedItems.length})
@@ -32,6 +31,9 @@ export default function Items() {
         <div className={styles.counter} onClick={() => setShowCompleted(true)}>
           ✓ ({completedCount})
         </div>
+      </div>
+      <div className={styles.category}>
+          <button>+</button>
         <div className={`${styles.counter} ${styles.category}`}>
           &lt;/&gt;
         </div>
